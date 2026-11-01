@@ -1,6 +1,7 @@
 package LinearTransformations;
 
 import Matriz.Vector2D;
+import Matriz.Vector3D;
 
 import java.util.Scanner;
 
@@ -46,8 +47,56 @@ public class Main {
     // ==================== ROTACAO ====================
     // Menu de rotação (2D ou 3D + eixo)
     private static void runRotation() {
-        System.out.println("Rotação ainda não implementada no Main");
+    System.out.println("=== Rotação ===");
+    System.out.println("1 - 2D");
+    System.out.println("2 - 3D");
+    System.out.print("Escolha a dimensão: ");
+    int dimension = scanner.nextInt();
+
+    if (dimension == 1) {
+        System.out.print("Digite x do vetor: ");
+        double x = scanner.nextDouble();
+        System.out.print("Digite y do vetor: ");
+        double y = scanner.nextDouble();
+        System.out.print("Digite o ângulo (em graus): ");
+        double angle = scanner.nextDouble();
+
+        Vector2D result = transform.rotation2D(Vector2D.of(x, y), angle);
+        System.out.println("Resultado: " + result);
+
+    } else if (dimension == 2) {
+        System.out.println("1 - Eixo X");
+        System.out.println("2 - Eixo Y");
+        System.out.println("3 - Eixo Z");
+        System.out.print("Escolha o eixo: ");
+        int axis = scanner.nextInt();
+
+        System.out.print("Digite x do vetor: ");
+        double x = scanner.nextDouble();
+        System.out.print("Digite y do vetor: ");
+        double y = scanner.nextDouble();
+        System.out.print("Digite z do vetor: ");
+        double z = scanner.nextDouble();
+        System.out.print("Digite o ângulo (em graus): ");
+        double angle = scanner.nextDouble();
+
+        Vector3D vector3D = Vector3D.of(x, y, z);
+        Vector3D result;
+        switch (axis) {
+            case 1 -> result = transform.rotation3DX(vector3D, angle);
+            case 2 -> result = transform.rotation3DY(vector3D, angle);
+            case 3 -> result = transform.rotation3DZ(vector3D, angle);
+            default -> {
+                System.out.println("Eixo inválido");
+                return;
+            }
+        }
+        System.out.println("Resultado: " + result);
+
+    } else {
+        System.out.println("Opção inválida");
     }
+}
 
     // ==================== REFLEXAO ====================
     // Menu de reflexão (2D ou 3D + eixo)
