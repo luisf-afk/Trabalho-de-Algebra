@@ -26,26 +26,80 @@ public class Transformations {
 
     // ==================== ROTACAO ====================
     // Ângulos em GRAUS (converter para radianos internamente se necessário)
+public Vector2D rotation2D(Vector2D vector, double angle) {
+    double rad = Math.toRadians(angle);
+    float cos = (float) Math.cos(rad);
+    float sin = (float) Math.sin(rad);
 
-    public Vector2D rotation2D(Vector2D vector, double angle) {
-        // angle em graus
-        return null;
-    }
+    Vector homogeneous = vector.toHomogeneous();
 
-    public Vector3D rotation3DX(Vector3D vector, double angle) {
-        // Rotação em torno do eixo X
-        return null;
-    }
+    float[] rotationElements = {
+        cos, -sin, 0f,
+        sin,  cos, 0f,
+        0f,   0f,  1f
+    };
+    Matrix rotationMatrix = new Matrix(3, 3, rotationElements);
 
-    public Vector3D rotation3DY(Vector3D vector, double angle) {
-        // Rotação em torno do eixo Y
-        return null;
-    }
+    Vector result = Operations.multiply(rotationMatrix, homogeneous);
+    return Vector2D.fromHomogeneous(result);
+}
 
-    public Vector3D rotation3DZ(Vector3D vector, double angle) {
-        // Rotação em torno do eixo Z
-        return null;
-    }
+public Vector3D rotation3DX(Vector3D vector, double angle) {
+    double rad = Math.toRadians(angle);
+    float cos = (float) Math.cos(rad);
+    float sin = (float) Math.sin(rad);
+
+    Vector homogeneous = vector.toHomogeneous();
+
+    float[] rotationElements = {
+        1f, 0f,   0f,  0f,
+        0f, cos, -sin, 0f,
+        0f, sin,  cos, 0f,
+        0f, 0f,   0f,  1f
+    };
+    Matrix rotationMatrix = new Matrix(4, 4, rotationElements);
+
+    Vector result = Operations.multiply(rotationMatrix, homogeneous);
+    return Vector3D.fromHomogeneous(result);
+}
+
+public Vector3D rotation3DY(Vector3D vector, double angle) {
+    double rad = Math.toRadians(angle);
+    float cos = (float) Math.cos(rad);
+    float sin = (float) Math.sin(rad);
+
+    Vector homogeneous = vector.toHomogeneous();
+
+    float[] rotationElements = {
+         cos, 0f, sin, 0f,
+         0f,  1f, 0f,  0f,
+        -sin, 0f, cos, 0f,
+         0f,  0f, 0f,  1f
+    };
+    Matrix rotationMatrix = new Matrix(4, 4, rotationElements);
+
+    Vector result = Operations.multiply(rotationMatrix, homogeneous);
+    return Vector3D.fromHomogeneous(result);
+}
+
+public Vector3D rotation3DZ(Vector3D vector, double angle) {
+    double rad = Math.toRadians(angle);
+    float cos = (float) Math.cos(rad);
+    float sin = (float) Math.sin(rad);
+
+    Vector homogeneous = vector.toHomogeneous();
+
+    float[] rotationElements = {
+        cos, -sin, 0f, 0f,
+        sin,  cos, 0f, 0f,
+        0f,   0f,  1f, 0f,
+        0f,   0f,  0f, 1f
+    };
+    Matrix rotationMatrix = new Matrix(4, 4, rotationElements);
+
+    Vector result = Operations.multiply(rotationMatrix, homogeneous);
+    return Vector3D.fromHomogeneous(result);
+}
 
     // ==================== REFLEXAO ====================
 
